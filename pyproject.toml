@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "django-crud"
+version = "0.1.0"
+description = ""
+authors = ["m7madmomani2 <mohammad.momani1996.kk@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2.4"
+
+[tool.poetry.dev-dependencies]
+black = "^21.6b0"
+pytest = "^6.2.4"
+flake8 = "^3.9.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
