@@ -43,7 +43,7 @@ class SnackTest(TestCase):
         self.assertContains(response,'descriptions')
         self.assertTemplateUsed(response,'snack_detail.html')
 
-    def test_snack_ceate_view(self):
+    def test_snack_create_view(self):
         url = reverse('snack_create')
         response_get = self.client.get(url)
         response_post = self.client.post(
@@ -55,8 +55,8 @@ class SnackTest(TestCase):
             },
             follow=True
             )
-        redirct_url = reverse('snack_detail',args=['2'])
-        self.assertRedirects(response_post,redirct_url)
+        redirect_url = reverse('snack_detail',args=['2'])
+        self.assertRedirects(response_post,redirect_url)
         self.assertContains(response_post,'testT2')
         self.assertTemplateUsed(response_post,'snack_detail.html')
         self.assertEqual(response_get.status_code,200)
@@ -73,8 +73,8 @@ class SnackTest(TestCase):
                 'description':'no salad'
             },
         )
-        redirct_url = reverse('snack_detail',args='1')
-        self.assertRedirects(response_post,redirct_url)
+        redirect_url = reverse('snack_detail',args='1')
+        self.assertRedirects(response_post,redirect_url)
         self.assertEqual(response_get.status_code,200)
         self.assertTemplateUsed(response_get,'snack_update.html')
 
