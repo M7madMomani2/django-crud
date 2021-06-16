@@ -8,30 +8,30 @@ from django.urls import reverse
 class SnackTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
-            username='aboud', email='aboud@gmail.com', password='aboud1234'
+            username='test1', email='test1@gmail.com', password='test1234'
         )
 
         self.user_2 = get_user_model().objects.create_user(
-            username='hamza', email='hamza@gmail.com', password='hamza1234'
+            username='test2', email='test2@gmail.com', password='test1234'
         )
 
         self.snack = Snack.objects.create(
-            title='falafel', purchaser=self.user, description='extra homos'
+            title='test', purchaser=self.user, description='descriptions'
         )
 
     def test_model_representation(self):
-        self.assertEqual(str(self.snack),'falafel')
+        self.assertEqual(str(self.snack),'test')
 
     def test_model_content(self):
-        self.assertEqual(self.snack.title,'falafel')
-        self.assertEqual(str(self.snack.purchaser),'aboud')
-        self.assertEqual(self.snack.description,'extra homos')
+        self.assertEqual(self.snack.title,'test')
+        self.assertEqual(str(self.snack.purchaser),'test1')
+        self.assertEqual(self.snack.description,'descriptions')
 
     def test_snack_list_view(self):
         url = reverse('snack_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code,200)
-        self.assertContains(response,'falafel')
+        self.assertContains(response,'test')
         self.assertTemplateUsed(response,'snack_list.html')
 
     def test_snack_detail_view(self):
@@ -40,7 +40,7 @@ class SnackTest(TestCase):
         no_response = self.client.get('/2/')
         self.assertEqual(response.status_code,200)
         self.assertEqual(no_response.status_code,404)
-        self.assertContains(response,'extra homos')
+        self.assertContains(response,'descriptions')
         self.assertTemplateUsed(response,'snack_detail.html')
 
     def test_snack_ceate_view(self):
@@ -49,7 +49,7 @@ class SnackTest(TestCase):
         response_post = self.client.post(
             url,
             {
-                'title':'fahita',
+                'title':'testT2',
                 'purchaser':self.user_2.id,
                 'description': 'no onions'
             },
@@ -57,7 +57,7 @@ class SnackTest(TestCase):
             )
         redirct_url = reverse('snack_detail',args=['2'])
         self.assertRedirects(response_post,redirct_url)
-        self.assertContains(response_post,'fahita')
+        self.assertContains(response_post,'testT2')
         self.assertTemplateUsed(response_post,'snack_detail.html')
         self.assertEqual(response_get.status_code,200)
         self.assertTemplateUsed(response_get,'snack_create.html')
@@ -68,7 +68,7 @@ class SnackTest(TestCase):
         response_post = self.client.post(
             url,
             {
-                'title':'falafel',
+                'title':'test',
                 'purchaser':self.user.id,
                 'description':'no salad'
             },
